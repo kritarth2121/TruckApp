@@ -1,6 +1,7 @@
-import { User } from '../../models/entities/User';
-import { AuthActionType } from './actions.constants';
-import { StoreAction } from '../../models/commons/StoreAction';
+import { StoreAction } from "models/commons/StoreAction";
+import { User } from "models/entities/User";
+import { AuthActionType } from "./actions.constants";
+
 
 export const authLoginAction = (payload: {
   email: string;

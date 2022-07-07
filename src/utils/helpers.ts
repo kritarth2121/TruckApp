@@ -6,7 +6,8 @@ import isUndefined from "lodash/isUndefined";
 import isEmpty from "lodash/isEmpty";
 import isBoolean from "lodash/isBoolean";
 import isNumber from "lodash/isNumber";
-import {toastService} from "services/ToastService";
+import {toastService} from "../services/ToastService";
+import {User} from "./../models/entities/User";
 
 declare global {
     interface Navigator {
@@ -260,7 +261,7 @@ export const bindTrailingArgs =
     (...args: any[]) =>
         func(...args, ...trailingArgs);
 
-export const getOptionsFromEnum = (obj: {[key: string]: string}): SelectOption[] =>
+export const getOptionsFromEnum = (obj: {[key: string]: string}): any[] =>
     Object.entries(obj).map(([key, value]) => ({
         label: enumTextToOptionsText(value),
         value,
@@ -280,4 +281,3 @@ export const getMessageTime = (date: string): string => {
     }
     return time;
 };
-

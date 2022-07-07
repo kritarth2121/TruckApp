@@ -11,7 +11,7 @@ import {
 } from '../actions/auth.actions';
 import { localStorageService } from '../../services/LocalStorageService';
 import { toastService } from '../../services/ToastService';
-import { StoreAction } from '../../models/commons/StoreAction';
+import { StoreAction } from '../../src/utils/models/commons/StoreAction';
 import { authService } from '../../services/api-services/AuthService';
 import { errorFinder } from '../../utils/helpers';
 import { AuthActionType } from '../actions/actions.constants';

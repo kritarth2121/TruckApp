@@ -1,5 +1,5 @@
+import { User } from 'models/entities/User';
 import { baseApiService } from './BaseApiService';
-import { User } from '../../models/entities/User';
 
 class AuthService {
   static getInstance(): AuthService {
