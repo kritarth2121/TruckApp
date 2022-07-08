@@ -5,9 +5,8 @@ import {Provider as ReduxProvider} from "react-redux";
 import {TailwindProvider} from "tailwindcss-react-native";
 import useCachedResources from "./src/hooks/useCachedResources";
 import useColorScheme from "./src/hooks/useColorScheme";
-import Navigation from "./src/navigation";
+import Navigation from "./src/screens/navigation";
 import {store} from "./src/redux/saga";
-import "nativewind/types.d";
 
 export default function App() {
     const isLoadingComplete = useCachedResources();
@@ -20,7 +19,7 @@ export default function App() {
             <SafeAreaProvider>
                 <ReduxProvider store={store}>
                     <TailwindProvider>
-                        <Navigation colorScheme={colorScheme} />
+                        <Navigation />
                         <StatusBar />
                     </TailwindProvider>
                 </ReduxProvider>
