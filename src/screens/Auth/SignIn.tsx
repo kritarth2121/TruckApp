@@ -4,6 +4,8 @@ import Input from "../shared-components/Input";
 import {Formik, Form, Field} from "formik";
 import Button from "../shared-components/Button";
 import cx from "classnames";
+import {View, Text, Dimensions, ScrollView} from "react-native";
+import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 
 const signUpValidationSchema = yup.object().shape({
     user_name: yup.string().min(10).required("User Name is required"),
@@ -30,35 +32,64 @@ interface Props {}
 
 const SignIn: React.FC<Props> = function (props) {
     return (
-        <Formik
-            initialValues={{
-                user_name: "",
-                email: "",
-                mobile_number: "",
-                password: "",
-                confirmPassword: "",
-            }}
-            validationSchema={signUpValidationSchema}
-            onSubmit={(values) => console.log(values)}
-        >
-            {({handleSubmit, isValid}) => (
-                <>
-                    <Field component={Input} name="user_name" placeholder="Full Name" />
-                    <Field component={Input} name="email" placeholder="Email Address" keyboardType="email-address" />
-                    <Field component={Input} name="mobile_number" placeholder="Phone Number" keyboardType="numeric" />
-                    <Field component={Input} name="password" placeholder="Password" secureTextEntry />
-                    <Field component={Input} name="confirmPassword" placeholder="Confirm Password" secureTextEntry />
+        <View className="bg-white h-full w-full space-y-3   p-3">
+            <Text className="text-black font-bold mt-20 mb-10 text-5xl">Create your Account</Text>
+            <Formik
+                initialValues={{
+                    user_name: "",
+                    email: "",
+                    mobile_number: "",
+                    password: "",
+                    confirmPassword: "",
+                }}
+                validationSchema={signUpValidationSchema}
+                onSubmit={(values) => console.log(values)}
+            >
+                {({handleSubmit, isValid, dirty}) => (
+                    <KeyboardAwareScrollView resetScrollToCoords={{x: 0, y: 0}} scrollEnabled={true}>
+                        <View className="flex flex-col overflow-y-scroll">
+                            <Field component={Input} name="user_name" iconName="user" placeholder="User Name" />
+                            <Field
+                                component={Input}
+                                name="email"
+                                placeholder="Email Address"
+                                iconName="mail"
+                                keyboardType="email-address"
+                            />
+                            <Field
+                                iconName="phone"
+                                component={Input}
+                                name="mobile_number"
+                                placeholder="Phone Number"
+                                keyboardType="numeric"
+                            />
+                            <Field
+                                component={Input}
+                                iconName="lock"
+                                name="password"
+                                placeholder="Password"
+                                secureTextEntry
+                            />
+                            <Field
+                                iconName="lock"
+                                component={Input}
+                                name="confirmPassword"
+                                placeholder="Confirm Password"
+                                secureTextEntry
+                            />
 
-                    <Button
-                        onPress={handleSubmit}
-                        title="SIGN UP"
-                        className={cx({
-                            "opacity-60": !isValid,
-                        })}
-                    />
-                </>
-            )}
-        </Formik>
+                            <Button
+                                onPress={handleSubmit}
+                                title="Next"
+                                extraClass={cx({
+                                    "opacity-50": !isValid || !dirty,
+                                })}
+                            />
+                        </View>
+                    </KeyboardAwareScrollView>
+                )}
+            </Formik>
+        </View>
     );
 };
 
