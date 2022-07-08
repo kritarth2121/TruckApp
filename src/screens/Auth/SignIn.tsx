@@ -6,6 +6,7 @@ import Button from "../shared-components/Button";
 import cx from "classnames";
 import {View, Text, Dimensions, ScrollView} from "react-native";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
+import {useNavigation} from "@react-navigation/native";
 
 const signUpValidationSchema = yup.object().shape({
     user_name: yup.string().min(10).required("User Name is required"),
@@ -31,6 +32,8 @@ const signUpValidationSchema = yup.object().shape({
 interface Props {}
 
 const SignIn: React.FC<Props> = function (props) {
+    const navigation = useNavigation();
+
     return (
         <View className="bg-white h-full w-full space-y-3   p-3">
             <Text className="text-black font-bold mt-20 mb-10 text-5xl">Create your Account</Text>
@@ -89,6 +92,12 @@ const SignIn: React.FC<Props> = function (props) {
                     </KeyboardAwareScrollView>
                 )}
             </Formik>
+            <View className="flex flex-row w-full text-center justify-center absolute bottom-10">
+                <Text>Already Have a account ?</Text>
+                <Text className="text-primary-500" onPress={() => navigation.navigate("login" as any)}>
+                    Log In
+                </Text>
+            </View>
         </View>
     );
 };

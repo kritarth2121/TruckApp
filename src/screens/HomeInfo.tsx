@@ -14,7 +14,7 @@ const HomeInfo: React.FC<Props> = function (props) {
                 <Text className="text-white text-3xl font-bold ">
                     The best app for shipping and delievey in your country
                 </Text>
-                <Button theme="dark" title="NEXT" onPress={() => navigation.navigate("sign-in")} />
+                <Button theme="dark" title="NEXT" onPress={() => navigation.navigate("sign-up" as any)} />
             </View>
         </Pressable>
     );

@@ -18,7 +18,6 @@ const themeClasses = {
 
 const Button: React.FC<Props> = function (props) {
     const {onPress, title = "Save", theme, extraClass} = props;
-    console.log(props, "props");
     return (
         <Pressable
             onPress={onPress}
