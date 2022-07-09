@@ -5,7 +5,6 @@ import {Formik, Form, Field} from "formik";
 import Button from "../shared-components/Button";
 import cx from "classnames";
 import {View, Text} from "react-native";
-import navigation from "screens/navigation";
 import {useNavigation} from "@react-navigation/native";
 
 const loginValidationSchema = yup.object().shape({
