@@ -1,8 +1,8 @@
 import {createSelector} from "reselect";
 import {journeySelector} from "./index";
 
-export const meLoading = createSelector([journeySelector], (authState) => authState.loading);
+export const journeyLoading = createSelector([journeySelector], (journeneyState) => journeneyState.loading);
 
-export const meIdSelector = createSelector([journeySelector], (authState) => authState.userID);
+export const journeyList = createSelector([journeySelector], (journeneyState) => journeneyState.list);
 
-export const userSelector = createSelector([journeySelector], (authState) => authState.user);
+export const journeyDriverList = createSelector([journeySelector], (journeneyState) => journeneyState.listForDriver);

@@ -62,22 +62,14 @@ export const allowedFileTypes = ["image/jpeg", "image/png", "image/jpg", "applic
 export const decodeHtmlCharCodes = (str: string) =>
     str.replace(/(&#(\d+);)/g, (match, capture, charCode) => String.fromCharCode(charCode));
 
-export const getUserName = (user?: User) => {
-    if (user?.first_name && user?.last_name) {
-        return `${user.first_name} ${user.last_name}`;
-    }
-    if (user?.first_name) {
-        return `${user?.first_name}`;
-    }
-    return "";
-};
-
 export const errorFinder = (error: any) => {
     if (error.response && error.response.data) {
         const e = error.response.data;
+        // console.log(e, (e?.errors && e.errors[0]?.message) || e?.message || "Error", "error");
         return (e?.errors && e.errors[0]?.message) || e?.message || "Error";
     }
     const e = error;
+    // console.log((e?.errors && e.errors[0]?.message) || e?.message || "Error", e);
     return (e?.errors && e.errors[0]?.message) || e?.message || "Error";
 };
 

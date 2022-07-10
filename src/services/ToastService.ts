@@ -1,5 +1,12 @@
-import Toast from "react-native-toast-message";
+import {ToastAndroid, Platform} from "react-native";
 
+// function notifyMessage(msg: string) {
+//     if (Platform.OS === "android") {
+//         ToastAndroid.show(msg, ToastAndroid.SHORT);
+//     } else {
+//         AlertIOS.alert(msg);
+//     }
+// }
 class ToastService {
     private static _instance: ToastService;
 
@@ -11,32 +18,19 @@ class ToastService {
     }
 
     showError(content: string) {
-        Toast.show({
-            type: "error",
-            text1: "Hello",
-            text2: "This is some something 👋",
-        });
+        ToastAndroid.show(content, ToastAndroid.SHORT);
     }
 
     showInfo(content: string) {
-        Toast.show({
-            type: "info",
-            text1: content,
-        });
+        ToastAndroid.show(content, ToastAndroid.SHORT);
     }
 
     showSuccess(content: string) {
-        Toast.show({
-            type: "success",
-            text1: content,
-        });
+        ToastAndroid.show(content, ToastAndroid.SHORT);
     }
 
     showWarning(content: string) {
-        Toast.show({
-            type: "success",
-            text1: content,
-        });
+        ToastAndroid.show(content, ToastAndroid.SHORT);
     }
 
     // dismiss(toastRef: any) {

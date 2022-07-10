@@ -1,7 +1,7 @@
-import {Journey} from "models/entities/Journey";
+import {Journey} from "../../models/entities/Journey";
 import produce from "immer";
 import {Reducer} from "redux";
-import {JourneyActionType} from "redux/actions/actions.constants";
+import {JourneyActionType} from "../../redux/actions/actions.constants";
 
 export interface JourneyState {
     loading?: boolean;
@@ -20,12 +20,12 @@ export const journeyReducer: Reducer<JourneyState> = (state = initialState, acti
             }
             case JourneyActionType.FETCH_ALL_COMPLETED: {
                 draft.loading = false;
-                draft.list=action.payload
+                draft.list = action.payload;
                 break;
             }
-            case JourneyActionType.FETCH_DRIVER_COMPLETED : {
+            case JourneyActionType.FETCH_DRIVER_COMPLETED: {
                 draft.loading = false;
-                draft.listForDriver=action.payload
+                draft.listForDriver = action.payload;
                 break;
             }
             default:

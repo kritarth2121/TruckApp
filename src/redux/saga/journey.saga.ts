@@ -1,6 +1,6 @@
-import { journeyService } from './../../services/api-services/JourneyService';
+import {journeyService} from "./../../services/api-services/JourneyService";
 import {all, call, put, takeLatest} from "redux-saga/effects";
-import {JourneyActionType} from "redux/actions/actions.constants";
+import {JourneyActionType} from "../../redux/actions/actions.constants";
 import {
     journeyCreateCompletedAction,
     journeyCreateErrorAction,
@@ -8,10 +8,9 @@ import {
     journeyFetchErrorAction,
     journeyFetchDriverCompletedAction,
     journeyFetchDriverErrorAction,
-} from "redux/actions/journey.actions";
-import {authService} from "services/api-services/AuthService";
-import {toastService} from "services/ToastService";
-import {errorFinder} from "utils/helpers";
+} from "../../redux/actions/journey.actions";
+import {toastService} from "../../services/ToastService";
+import {errorFinder} from "../../utils/helpers";
 import {StoreAction} from "../../models/commons/StoreAction";
 
 function* createJourney(data: StoreAction<JourneyActionType>): any {

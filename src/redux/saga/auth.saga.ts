@@ -22,10 +22,11 @@ function* loginSaga(data: StoreAction<AuthActionType>): any {
     try {
         const response = yield call(authService.login, data.payload);
         yield put(authLoginCompletedAction(response.user));
-        localStorageService.setAuthToken(response?.token?.token);
+        localStorageService.setAuthToken(response?.token);
         toastService.showSuccess("Login Successful");
     } catch (e: any) {
         yield put(authLoginErrorAction(errorFinder(e)));
+        console.log(e);
         toastService.showError(errorFinder(e));
     }
 }
