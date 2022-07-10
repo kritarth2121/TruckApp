@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import * as yup from "yup";
 import Input from "../shared-components/Input";
 import {Formik, Form, Field} from "formik";
@@ -7,13 +7,23 @@ import cx from "classnames";
 import {View, Text, Dimensions, ScrollView} from "react-native";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {useNavigation} from "@react-navigation/native";
+import {authSignInAction} from "../../redux/actions/auth.actions";
+import {connect} from "react-redux";
+import {userSelector} from "../../redux/selectors/auth.selectors";
+import {User} from "../../models/entities/User";
+import {AppState} from "../../redux/reducers";
+
+const phoneRegExp =
+    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 const signUpValidationSchema = yup.object().shape({
-    user_name: yup.string().min(10).required("User Name is required"),
+    name: yup.string().min(10).required("User Name is required"),
     mobile_number: yup
         .string()
-        .matches(/(01)(\d){8}\b/, "Enter a valid phone number")
-        .required("Phone number is required"),
+        .required("Phone number is required")
+        .matches(phoneRegExp, "Phone number is not valid")
+        .min(10, "Too short")
+        .max(10, "Too long"),
     email: yup.string().email("Please enter valid email").required("Email is required"),
     password: yup
         .string()
@@ -29,29 +39,45 @@ const signUpValidationSchema = yup.object().shape({
         .required("Confirm password is required"),
 });
 
-interface Props {}
+interface Props {
+    authSignInAction?: any;
+    user?: User;
+}
 
 const SignIn: React.FC<Props> = function (props) {
     const navigation = useNavigation();
+    const {authSignInAction, user} = props;
+
+    useEffect(() => {
+        if (user) {
+            navigation.navigate("app" as any);
+        }
+    }, [user]);
 
     return (
         <View className="bg-white h-full w-full space-y-3   p-3">
             <Text className="text-black font-bold mt-20 mb-10 text-5xl">Create your Account</Text>
             <Formik
                 initialValues={{
-                    user_name: "",
+                    name: "",
                     email: "",
                     mobile_number: "",
                     password: "",
                     confirmPassword: "",
                 }}
                 validationSchema={signUpValidationSchema}
-                onSubmit={(values) => console.log(values)}
+                onSubmit={(values) => {
+                    authSignInAction({
+                        name: values.name,
+                        email: values.email,
+                        password: values.password,
+                    });
+                }}
             >
                 {({handleSubmit, isValid, dirty}) => (
-                    <KeyboardAwareScrollView resetScrollToCoords={{x: 0, y: 0}} scrollEnabled={true}>
+                    <KeyboardAwareScrollView scrollEnabled={true}>
                         <View className="flex flex-col overflow-y-scroll">
-                            <Field component={Input} name="user_name" iconName="user" placeholder="User Name" />
+                            <Field component={Input} name="name" iconName="user" placeholder="Full Name" />
                             <Field
                                 component={Input}
                                 name="email"
@@ -92,7 +118,7 @@ const SignIn: React.FC<Props> = function (props) {
                     </KeyboardAwareScrollView>
                 )}
             </Formik>
-            <View className="flex flex-row w-full text-center justify-center absolute bottom-10">
+            <View className="flex flex-row w-full text-center justify-center ">
                 <Text>Already Have a account ?</Text>
                 <Text className="text-primary-500" onPress={() => navigation.navigate("login" as any)}>
                     Log In
@@ -104,4 +130,12 @@ const SignIn: React.FC<Props> = function (props) {
 
 SignIn.defaultProps = {};
 
-export default React.memo(SignIn);
+const mapStateToProps = (state: AppState) => ({
+    user: userSelector(state),
+});
+
+const mapDispatchToProps = {
+    authSignInAction,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(SignIn));

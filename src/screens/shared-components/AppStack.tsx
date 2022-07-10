@@ -6,6 +6,7 @@ import Home from "../App/Home";
 import {View} from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import CreateJourney from "../App/Admin/CreateJourney";
 
 const Drawer = createDrawerNavigator();
 
@@ -25,7 +26,7 @@ const AppStack = () => {
         >
             <Drawer.Screen
                 name="Home"
-                component={Home}
+                component={CreateJourney}
                 options={{
                     drawerIcon: ({color}) => <FontAwesome name="home" size={22} color={color} />,
                 }}

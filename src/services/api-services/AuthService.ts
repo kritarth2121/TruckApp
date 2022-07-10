@@ -1,45 +1,38 @@
-import { User } from 'models/entities/User';
-import { baseApiService } from './BaseApiService';
+import {User} from "models/entities/User";
+import {baseApiService} from "./BaseApiService";
 
 class AuthService {
-  static getInstance(): AuthService {
-    return new AuthService();
-  }
+    static getInstance(): AuthService {
+        return new AuthService();
+    }
 
-  async login(data: {
-    email: string;
-    password: string;
-  }): Promise<{ user: User; token: string }> {
-    return baseApiService.post('/login', data, { extras: { useAuth: false } });
-  }
+    async login(data: {email: string; password: string}): Promise<{user: User; token: string}> {
+        return baseApiService.post("/users/login", data, {extras: {useAuth: false}});
+    }
 
-  async fetchMe(): Promise<{ user: User }> {
-    return baseApiService.get('/me');
-  }
+    async create(data: any): Promise<{user: User}> {
+        return baseApiService.post("/users/signup", data);
+    }
 
-  async updateMe(data: Partial<User>): Promise<User> {
-    return baseApiService.put('/me', data);
-  }
+    async fetchMe(): Promise<{user: User}> {
+        return baseApiService.get("/me");
+    }
 
-  async changePassword(data: {
-    old_password: string;
-    password: string;
-    password_confirmation: string;
-  }): Promise<any> {
-    return baseApiService.put('/me/password', data);
-  }
+    async updateMe(data: Partial<User>): Promise<User> {
+        return baseApiService.put("/me", data);
+    }
 
-  async forgotPassword(data: { email: string }): Promise<any> {
-    return baseApiService.post('/password/forgot', data);
-  }
+    async changePassword(data: {old_password: string; password: string; password_confirmation: string}): Promise<any> {
+        return baseApiService.put("/me/password", data);
+    }
 
-  async resetPassword(data: {
-    email: string;
-    password: string;
-    code: any;
-  }): Promise<any> {
-    return baseApiService.put('/password/reset/code', data);
-  }
+    async forgotPassword(data: {email: string}): Promise<any> {
+        return baseApiService.post("/password/forgot", data);
+    }
+
+    async resetPassword(data: {email: string; password: string; code: any}): Promise<any> {
+        return baseApiService.put("/password/reset/code", data);
+    }
 }
 
 export const authService = AuthService.getInstance();

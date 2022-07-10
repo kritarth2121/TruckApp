@@ -1,4 +1,9 @@
 export enum AuthActionType {
+
+    SIGNIN = "auth/signin",
+    SIGNIN_COMPLETED = "auth/signin/completed",
+    SIGNIN_ERROR = "auth/signin/error",
+
     LOGIN = "auth/login",
     LOGIN_COMPLETED = "auth/login/completed",
     LOGIN_ERROR = "auth/login/error",

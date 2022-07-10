@@ -1,6 +1,4 @@
 import { Entity } from './entity';
-import { UserRole } from '../enums/User/UserRole';
-import { ContactMethod } from '../enums/User/ContactMethod';
 import { VendorRole } from './VendorRole';
 
 export interface User extends Entity {
@@ -13,8 +11,6 @@ export interface User extends Entity {
   secondary_email?: string;
   phone_number?: string;
   secondary_phone_number?: string;
-  preferred_contact_method: ContactMethod;
-  role: UserRole;
   is_active?: boolean;
   // added for assignee response
   password_last_updated_at?: string;

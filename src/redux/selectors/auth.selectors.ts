@@ -15,3 +15,8 @@ export const meIdSelector = createSelector(
   [authSelector],
   (authState) => authState.userID
 );
+
+export const userSelector = createSelector(
+  [authSelector],
+  (authState) => authState.user
+);
