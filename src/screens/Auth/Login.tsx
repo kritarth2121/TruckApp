@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import * as yup from "yup";
 import Input from "../shared-components/Input";
 import {Formik, Form, Field} from "formik";
@@ -6,6 +6,11 @@ import Button from "../shared-components/Button";
 import cx from "classnames";
 import {View, Text} from "react-native";
 import {useNavigation} from "@react-navigation/native";
+import {authLoginAction} from "../../redux/actions/auth.actions";
+import {userSelector} from "../../redux/selectors/auth.selectors";
+import {connect} from "react-redux";
+import {User} from "../../models/entities/User";
+import {AppState} from "../../redux/reducers";
 
 const loginValidationSchema = yup.object().shape({
     email: yup.string().email("Please enter valid email").required("Email Address is Required"),
@@ -15,10 +20,21 @@ const loginValidationSchema = yup.object().shape({
         .required("Password is required"),
 });
 
-interface Props {}
+interface Props {
+    login?: any;
+    user?: User;
+}
 
 const Login: React.FC<Props> = function (props) {
     const navigation = useNavigation();
+
+    const {login, user} = props;
+
+    useEffect(() => {
+        if (user) {
+            navigation.navigate("app" as any);
+        }
+    }, [user]);
 
     return (
         <View className="bg-white h-full w-full space-y-3   p-3">
@@ -27,7 +43,12 @@ const Login: React.FC<Props> = function (props) {
             <Formik
                 initialValues={{email: "", password: ""}}
                 validationSchema={loginValidationSchema}
-                onSubmit={(values) => console.log(values)}
+                onSubmit={(values) => {
+                    login({
+                        email: values.email,
+                        password: values.password,
+                    });
+                }}
             >
                 {({handleSubmit, isValid, dirty}) => (
                     <>
@@ -67,4 +88,12 @@ const Login: React.FC<Props> = function (props) {
 
 Login.defaultProps = {};
 
-export default React.memo(Login);
+const mapStateToProps = (state: AppState) => ({
+    user: userSelector(state),
+});
+
+const mapDispatchToProps = {
+    login: authLoginAction,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Login));
