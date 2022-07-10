@@ -5,7 +5,7 @@ class AuthService {
     static getInstance(): AuthService {
         return new AuthService();
     }
-
+    
     async login(data: {email: string; password: string}): Promise<{user: User; token: string}> {
         return baseApiService.post("/users/login", data, {extras: {useAuth: false}});
     }

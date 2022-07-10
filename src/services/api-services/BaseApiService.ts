@@ -156,7 +156,7 @@ export class BaseApiService {
         if (useAuth) {
             defaultHeaders = {
                 ...defaultHeaders,
-                Authorization: `bearer ${localStorageService.getAuthToken()}`,
+                Authorization: `Bearer ${localStorageService.getAuthToken()}`,
             };
         }
 

@@ -9,15 +9,16 @@ import cx from "classnames";
 import tw from "twrnc";
 import {Picker} from "@react-native-picker/picker";
 import Card from "./components/Card";
+import {localStorageService} from "../../services/LocalStorageService";
 
 interface Props {
     navigation: any;
 }
 
 const Home: React.FC<Props> = function ({navigation}) {
-    const countries = ["Egypt", "Canada", "Australia", "Ireland"];
     const [selectedLanguage, setSelectedLanguage] = useState();
-
+    const authToken = localStorageService.getAuthToken();
+    console.log(authToken);
     return (
         <View className="bg-white h-full w-full pt-10 px-3">
             <View className="flex flex-row justify-between">

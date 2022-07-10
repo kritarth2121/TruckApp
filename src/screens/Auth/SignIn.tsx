@@ -10,7 +10,7 @@ import {useNavigation} from "@react-navigation/native";
 import {authSignInAction} from "../../redux/actions/auth.actions";
 import {connect} from "react-redux";
 import {userSelector} from "../../redux/selectors/auth.selectors";
-import {User} from "../../models/entities/User";
+import {User, UserRole} from "../../models/entities/User";
 import {AppState} from "../../redux/reducers";
 
 const phoneRegExp =
@@ -71,6 +71,8 @@ const SignIn: React.FC<Props> = function (props) {
                         name: values.name,
                         email: values.email,
                         password: values.password,
+                        mobile_number: values.mobile_number,
+                        role: UserRole.DRIVER,
                     });
                 }}
             >

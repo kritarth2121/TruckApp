@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { authSelector } from './app.selectors';
+import { authSelector } from '.';
 
 export const meError = createSelector(
   [authSelector],

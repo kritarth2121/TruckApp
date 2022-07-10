@@ -29,3 +29,18 @@ export enum AuthActionType {
     RESET_PASSWORD_COMPLETED = "auth/reset/password/completed",
     RESET_PASSWORD_ERROR = "auth/reset/password/error",
 }
+
+export enum JourneyActionType {
+
+    CREATE = "journey/create",
+    CREATE_COMPLETED ="journey/create/completed",
+    CREATE_ERROR = "journey/create/error",
+
+    FETCH_ALL = "journey/all",
+    FETCH_ALL_COMPLETED = "journey/all/completed",
+    FETCH_ALL_ERROR = "journey/all/error",
+
+    FETCH_DRIVER ="journey/driver",
+    FETCH_DRIVER_COMPLETED="journey/driver/completed",
+    FETCH_DRIVER_ERROR="journey/driver/error"
+}

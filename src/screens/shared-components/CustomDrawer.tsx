@@ -3,8 +3,14 @@ import {View, Text, ImageBackground, Image, TouchableOpacity} from "react-native
 import {DrawerContentScrollView, DrawerItem, DrawerItemList} from "@react-navigation/drawer";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import {connect} from "react-redux";
+import {userSelector} from "../../redux/selectors/auth.selectors";
+import {AppState} from "../../redux/reducers";
+import {User} from "../../models/entities/User";
+import {enumTextToOptionsText} from "../../utils/helpers";
 
 const CustomDrawer = (props: any) => {
+    const {user} = props;
     return (
         <View style={{flex: 1}} className="bg-primary-500">
             <DrawerContentScrollView {...props}>
@@ -22,10 +28,10 @@ const CustomDrawer = (props: any) => {
                             marginBottom: 5,
                         }}
                     >
-                        John Doe
+                        {user.name}
                     </Text>
                     <View style={{flexDirection: "row"}}>
-                        <Text className="text-gray-400">Driver</Text>
+                        <Text className="text-gray-400">{enumTextToOptionsText(user.role)}</Text>
                     </View>
                 </View>
 
@@ -60,4 +66,10 @@ const CustomDrawer = (props: any) => {
     );
 };
 
-export default CustomDrawer;
+const mapStateToProps = (state: AppState) => ({
+    user: userSelector(state),
+});
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(CustomDrawer));
