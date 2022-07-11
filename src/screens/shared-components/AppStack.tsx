@@ -59,6 +59,8 @@ const AppStack = (props: Props) => {
         }
     };
 
+
+
     return (
         <>
             {!user && loading ? (

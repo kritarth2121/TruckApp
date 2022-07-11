@@ -4,7 +4,7 @@ import AppStack from "../shared-components/AppStack";
 import Login from "../Auth/Login";
 import SignIn from "../Auth/SignIn";
 import HomeInfo from "../HomeInfo";
-import { navigationRef } from "../../RootNavigation";
+import {navigationRef} from "../../RootNavigation";
 
 export default function Navigation() {
     return (
@@ -18,7 +18,7 @@ const Stack = createNativeStackNavigator();
 
 function RootNavigator() {
     return (
-        <Stack.Navigator initialRouteName="app">
+        <Stack.Navigator initialRouteName="/">
             <Stack.Screen name="/" component={HomeInfo} options={{headerShown: false}} />
             <Stack.Screen name="sign-up" component={SignIn} options={{headerShown: false}} />
             <Stack.Screen name="login" component={Login} options={{headerShown: false}} />

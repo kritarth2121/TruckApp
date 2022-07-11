@@ -19,6 +19,11 @@ const CustomDrawer = (props: any) => {
             <DrawerContentScrollView {...props}>
                 <View className="w-full pl-3 pt-20 flex flex-col justify-start">
                     <Image
+                        source={require("../../../src/assets/images/run core final logo.png")}
+                        className="h-10 w-full"
+                    />
+
+                    <Image
                         className="rounded-full h-20 w-20"
                         source={{
                             uri: "https://picsum.photos/200/300",
