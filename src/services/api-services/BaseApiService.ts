@@ -11,9 +11,9 @@ export declare type QueryParams = {
 };
 
 const LOCAL_BE_URL = "http://localhost:8080";
-const STAGING_BE_URL = "https://api.staging.feather.host";
+const STAGING_BE_URL = "https://truckapp-be.herokuapp.com";
 
-const BASE_URL = LOCAL_BE_URL;
+const BASE_URL = STAGING_BE_URL;
 
 export class BaseApiService {
     private static instance: BaseApiService;

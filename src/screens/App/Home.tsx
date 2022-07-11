@@ -2,29 +2,35 @@ import React, {useState} from "react";
 import {View, Text, Pressable, FlatList} from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import SelectDropdown from "react-native-select-dropdown";
-import RNPickerSelect from "react-native-picker-select";
-import Button from "../shared-components/Button";
 import cx from "classnames";
 import tw from "twrnc";
 import {Picker} from "@react-native-picker/picker";
 import Card from "./components/Card";
 import {localStorageService} from "../../services/LocalStorageService";
+import {DrawerActions, useNavigation} from "@react-navigation/native";
+import {Journey} from "src/models/entities/Journey";
 
 interface Props {
-    navigation: any;
+    data?: Journey[];
 }
 
-const Home: React.FC<Props> = function ({navigation}) {
+const Home: React.FC<Props> = function (props) {
     const [selectedLanguage, setSelectedLanguage] = useState();
     const authToken = localStorageService.getAuthToken();
     console.log(authToken);
+    const {data} = props;
+    const navigation = useNavigation();
     return (
         <View className="bg-white h-full w-full pt-10 px-3">
             <View className="flex flex-row justify-between">
-                <Icon name="menu" size={30} color="#000" onPress={() => navigation.openDrawer()} />
+                <Icon
+                    name="menu"
+                    size={30}
+                    color="#000"
+                    onPress={() => navigation.dispatch(DrawerActions.openDrawer)}
+                />
                 <Text></Text>
-                <FontAwesome name="bell" size={25} color="#1A85E7" onPress={() => navigation.openDrawer()} />
+                <FontAwesome name="bell" size={25} color="#1A85E7" />
             </View>
             <View className="mt-10">
                 <Text className="text-4xl">
@@ -47,7 +53,7 @@ const Home: React.FC<Props> = function ({navigation}) {
                     <Text className="text-white font-bold text-sm">View All</Text>
                 </Pressable>
             </View>
-            <FlatList data={[1, 2, 3, 4, 6, 2, 3, 4, 6, 2, 3, 4, 6]} numColumns={2} renderItem={() => <Card />} />
+            <FlatList data={data} numColumns={2} renderItem={(item) => <Card />} />
         </View>
     );
 };

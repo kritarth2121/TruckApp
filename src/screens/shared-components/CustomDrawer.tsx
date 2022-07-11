@@ -8,9 +8,11 @@ import {userSelector} from "../../redux/selectors/auth.selectors";
 import {AppState} from "../../redux/reducers";
 import {User} from "../../models/entities/User";
 import {enumTextToOptionsText} from "../../utils/helpers";
-import { authLogoutAction } from "../../redux/actions/auth.actions";
+import {authLogoutAction} from "../../redux/actions/auth.actions";
+import {useNavigation} from "@react-navigation/native";
 
 const CustomDrawer = (props: any) => {
+    const navigation = useNavigation();
     const {user, logout} = props;
     return (
         <View style={{flex: 1}} className="bg-primary-500">
@@ -29,10 +31,10 @@ const CustomDrawer = (props: any) => {
                             marginBottom: 5,
                         }}
                     >
-                        {user.name}
+                        {user?.name}
                     </Text>
                     <View style={{flexDirection: "row"}}>
-                        <Text className="text-gray-400">{enumTextToOptionsText(user.role)}</Text>
+                        <Text className="text-gray-400">{enumTextToOptionsText(user?.role)}</Text>
                     </View>
                 </View>
 
@@ -56,7 +58,13 @@ const CustomDrawer = (props: any) => {
                 </TouchableOpacity>
             </View>
             <View style={{padding: 20}}>
-                <TouchableOpacity style={{paddingVertical: 15}} onPress={() => logout()}>
+                <TouchableOpacity
+                    style={{paddingVertical: 15}}
+                    onPress={() => {
+                        logout();
+                        navigation.navigate("login" as any);
+                    }}
+                >
                     <View className="flex flex-row space-x-3 items-center">
                         <Ionicons name="exit-outline" color="#fff" size={25} />
                         <Text className="text-white">Log Out</Text>

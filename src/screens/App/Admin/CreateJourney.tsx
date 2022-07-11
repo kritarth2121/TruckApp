@@ -19,7 +19,7 @@ import {User} from "../../../models/entities/User";
 import {driversSelector, usersSelector} from "../../../redux/selectors/auth.selectors";
 import {localStorageService} from "../../../services/LocalStorageService";
 import Fontisto from "react-native-vector-icons/Fontisto";
-import {journeyCreateAction} from "src/redux/actions/journey.actions";
+import {journeyCreateAction} from "../../../redux/actions/journey.actions";
 
 interface Props {
     drivers?: User[];
@@ -35,8 +35,8 @@ const CreateJourney: React.FC<Props> = function (props) {
         start_location: yup.string().min(10).required("Start Location is required"),
         end_location: yup.string().min(10).required("Start Location is required"),
         date: yup.date().typeError("Please enter valid Date").required("Date is required"),
-        driver_id: yup.number().required("please choose Driver"),
-        user_id: yup.number().required("please choose Driver"),
+        driver_id: yup.mixed().required("please choose Driver"),
+        user_id: yup.mixed().required("please choose Driver"),
     });
     const [open, setOpen] = useState(false);
     useEffect(() => {
@@ -53,15 +53,19 @@ const CreateJourney: React.FC<Props> = function (props) {
                     start_location: "",
                     end_location: "",
                     date: new Date(),
-                    driver_id: "",
-                    user_id: "",
+                    driver_id: null,
+                    user_id: null,
                 }}
                 validationSchema={journeyValidationSchema}
                 onSubmit={(values) => {
-                    journeyCreate({values});
+                    journeyCreate({
+                        ...values,
+                        driver_id: (values?.driver_id as any)?.id,
+                        user_id: (values?.user_id as any)?.id,
+                    });
                 }}
             >
-                {({handleSubmit, values, isValid, dirty, setFieldValue}) => (
+                {({handleSubmit, values, errors, isValid, dirty, setFieldValue}) => (
                     <KeyboardAwareScrollView scrollEnabled={false}>
                         <View className="flex flex-col overflow-y-scroll">
                             <Field
@@ -102,12 +106,13 @@ const CreateJourney: React.FC<Props> = function (props) {
                                     }}
                                 />
                             )}
+                            {console.log(errors)}
                             <SelectBox
                                 id={30}
                                 labelStyle={{color: "black", fontSize: 24}}
                                 label="Select Driver"
                                 options={drivers?.map((driver) => ({item: driver.name, id: driver._id}))}
-                                value={values.driver_id}
+                                value={values.driver_id || ""}
                                 onChange={(value: any) => {
                                     setFieldValue("driver_id", value);
                                 }}
@@ -119,7 +124,7 @@ const CreateJourney: React.FC<Props> = function (props) {
                                 labelStyle={{color: "black", fontSize: 24}}
                                 label="Select User"
                                 options={users?.map((driver) => ({item: driver.name, id: driver._id}))}
-                                value={values.user_id}
+                                value={values.user_id || ""}
                                 onChange={(value: any) => {
                                     setFieldValue("user_id", value);
                                 }}

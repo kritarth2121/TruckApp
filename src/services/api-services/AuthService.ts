@@ -16,7 +16,7 @@ class AuthService {
     }
 
     async fetchMe(): Promise<{user: User}> {
-        return baseApiService.get("/me");
+        return baseApiService.get("users/me");
     }
 
     async updateMe(data: Partial<User>): Promise<User> {
