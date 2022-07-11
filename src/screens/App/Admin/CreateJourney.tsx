@@ -20,6 +20,7 @@ import {driversSelector, usersSelector} from "../../../redux/selectors/auth.sele
 import {localStorageService} from "../../../services/LocalStorageService";
 import Fontisto from "react-native-vector-icons/Fontisto";
 import {journeyCreateAction} from "../../../redux/actions/journey.actions";
+import Header from "../../../screens/shared-components/Header";
 
 interface Props {
     drivers?: User[];
@@ -47,6 +48,7 @@ const CreateJourney: React.FC<Props> = function (props) {
     console.log(drivers, users);
     return (
         <View className="bg-white h-full w-full space-y-3   p-3">
+            <Header />
             <Text className="text-black font-bold mt-20 mb-10 text-5xl">Create Journey</Text>
             <Formik
                 initialValues={{

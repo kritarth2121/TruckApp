@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {View, Text, Pressable, FlatList} from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -9,29 +9,37 @@ import Card from "./components/Card";
 import {localStorageService} from "../../services/LocalStorageService";
 import {DrawerActions, useNavigation} from "@react-navigation/native";
 import {Journey} from "src/models/entities/Journey";
+import Header from "../shared-components/Header";
+import {connect} from "react-redux";
+import {journeyFetchAction, journeyFetchDriverAction} from "../../redux/actions/journey.actions";
+import {journeyList, journeyDriverList} from "../../redux/selectors/journey.selector";
+import {AppState} from "../../redux/reducers";
+import {UserRole} from "../../models/enums/UserRole";
 
 interface Props {
-    data?: Journey[];
+    type: string;
+    fetchAll: any;
+    fetchDriver: any;
+    list?: Journey[];
+    driverJourneyList?: Journey[];
 }
 
 const Home: React.FC<Props> = function (props) {
-    const [selectedLanguage, setSelectedLanguage] = useState();
-    const authToken = localStorageService.getAuthToken();
-    console.log(authToken);
-    const {data} = props;
-    const navigation = useNavigation();
+    const [selectedStatus, setSelectedStatus] = useState("");
+
+    const {type, driverJourneyList, list, fetchAll, fetchDriver} = props;
+    const getValue = (itemValue: string) => {
+        if (type === UserRole.ADMIN) {
+            fetchAll(itemValue);
+        } else {
+            fetchDriver(itemValue);
+        }
+    };
+    console.log(selectedStatus);
+
     return (
         <View className="bg-white h-full w-full pt-10 px-3">
-            <View className="flex flex-row justify-between">
-                <Icon
-                    name="menu"
-                    size={30}
-                    color="#000"
-                    onPress={() => navigation.dispatch(DrawerActions.openDrawer)}
-                />
-                <Text></Text>
-                <FontAwesome name="bell" size={25} color="#1A85E7" />
-            </View>
+            <Header />
             <View className="mt-10">
                 <Text className="text-4xl">
                     The best <Text className="text-primary-500">shipping</Text> and{" "}
@@ -42,22 +50,46 @@ const Home: React.FC<Props> = function (props) {
                 <Picker
                     style={{width: 200, height: 44}}
                     placeholder="Select status"
-                    selectedValue={selectedLanguage}
-                    onValueChange={(itemValue, itemIndex) => setSelectedLanguage(itemValue)}
+                    selectedValue={selectedStatus}
+                    onValueChange={(itemValue, itemIndex) => {
+                        setSelectedStatus(itemValue);
+                        getValue(itemValue);
+                    }}
                 >
+                    <Picker.Item label="All" value="" />
                     <Picker.Item label="New" value="new" />
                     <Picker.Item label="Pending" value="pending" />
                     <Picker.Item label="Completed" value="completed" />
                 </Picker>
-                <Pressable className={cx("h-9 rounded-xl bg-primary-500 text-white w-20 items-center justify-center ")}>
+                <Pressable
+                    className={cx("h-9 rounded-xl bg-primary-500 text-white w-20 items-center justify-center ")}
+                    onPress={() => {
+                        setSelectedStatus("");
+                        getValue("");
+                    }}
+                >
                     <Text className="text-white font-bold text-sm">View All</Text>
                 </Pressable>
             </View>
-            <FlatList data={data} numColumns={2} renderItem={(item) => <Card />} />
+            <FlatList
+                data={type === UserRole.ADMIN ? list : driverJourneyList}
+                numColumns={2}
+                renderItem={(item) => <Card item={item.item} />}
+            />
         </View>
     );
 };
 
 Home.defaultProps = {};
 
-export default React.memo(Home);
+const mapStateToProps = (state: AppState) => ({
+    list: journeyList(state),
+    driverJourneyList: journeyDriverList(state),
+});
+
+const mapDispatchToProps = {
+    fetchAll: journeyFetchAction,
+    fetchDriver: journeyFetchDriverAction,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Home));

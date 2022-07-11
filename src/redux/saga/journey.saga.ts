@@ -26,6 +26,7 @@ function* createJourney(data: StoreAction<JourneyActionType>): any {
 
 function* fetchJourney(data: StoreAction<JourneyActionType>): any {
     try {
+        console.log(data.payload, "check");
         const response = yield call(journeyService.fetchAll, data.payload);
         yield put(journeyFetchCompletedAction(response.journeys));
     } catch (e: any) {

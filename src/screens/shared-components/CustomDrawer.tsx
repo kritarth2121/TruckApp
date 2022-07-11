@@ -13,7 +13,7 @@ import {useNavigation} from "@react-navigation/native";
 
 const CustomDrawer = (props: any) => {
     const navigation = useNavigation();
-    const {user, logout} = props;
+    const {user, logout, setAuthToken} = props;
     return (
         <View style={{flex: 1}} className="bg-primary-500">
             <DrawerContentScrollView {...props}>
@@ -62,6 +62,7 @@ const CustomDrawer = (props: any) => {
                     style={{paddingVertical: 15}}
                     onPress={() => {
                         logout();
+                        setAuthToken(false);
                         navigation.navigate("login" as any);
                     }}
                 >

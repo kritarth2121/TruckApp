@@ -21,10 +21,8 @@ export class LocalStorageService {
         return await AsyncStorage?.getItem(key);
     }
 
-    removeLocalStorageValue(key: string): void {
-        if (typeof AsyncStorage !== "undefined") {
-            AsyncStorage?.removeItem(key);
-        }
+    async removeLocalStorageValue(key: string) {
+        await AsyncStorage?.removeItem(key);
     }
 
     setSessionStorageValue(key: string, value: string): void {

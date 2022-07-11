@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import CustomDrawer from "./CustomDrawer";
@@ -17,6 +17,7 @@ import {Journey} from "../../models/entities/Journey";
 import {localStorageService} from "../../services/LocalStorageService";
 import {useNavigation} from "@react-navigation/native";
 import {authFetchMeAction} from "../../redux/actions/auth.actions";
+import {setAutoFreeze} from "immer";
 
 const Drawer = createDrawerNavigator();
 
@@ -39,17 +40,23 @@ const AppStack = (props: Props) => {
             fetchAll();
         }
     }, [user]);
+    const [loggedin, setLoggedIn] = useState(true);
 
-    const authToken = localStorageService.getAuthToken();
-
-    const navigate = useNavigation();
     useEffect(() => {
+        console.log("fucked");
+        getToken();
+    }, []);
+    const navigate = useNavigation();
+
+    const getToken = async () => {
+        const authToken = await localStorageService.getAuthToken();
+        console.log(authToken, "authToken");
         if (!authToken) {
-            navigate.navigate("/login" as any);
+            navigate.navigate("login" as any);
         } else if (!user) {
             fetchMe();
         }
-    }, [user]);
+    };
 
     return (
         <>
@@ -59,7 +66,7 @@ const AppStack = (props: Props) => {
                 </View>
             ) : (
                 <Drawer.Navigator
-                    drawerContent={(props) => <CustomDrawer {...props} />}
+                    drawerContent={(props) => <CustomDrawer setAuthToken={setLoggedIn} {...props} />}
                     screenOptions={{
                         headerShown: false,
                         drawerActiveTintColor: "#fff",
@@ -81,20 +88,22 @@ const AppStack = (props: Props) => {
                             />
                             <Drawer.Screen
                                 name="All-Journeys"
-                                component={() => <Home data={list} />}
                                 options={{
                                     drawerIcon: ({color}) => <FontAwesome name="group" size={22} color={color} />,
                                 }}
-                            />
+                            >
+                                {(props) => <Home type={UserRole.ADMIN} />}
+                            </Drawer.Screen>
                         </>
                     ) : (
                         <Drawer.Screen
                             name="Journeys"
-                            component={() => <Home data={driverJourneyList} />}
                             options={{
                                 drawerIcon: ({color}) => <FontAwesome name="home" size={22} color={color} />,
                             }}
-                        />
+                        >
+                            {(props) => <Home type="driver" />}
+                        </Drawer.Screen>
                     )}
                     <Drawer.Screen
                         name="History"
