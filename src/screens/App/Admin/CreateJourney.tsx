@@ -12,10 +12,25 @@ import Icon from "react-native-vector-icons/AntDesign";
 import moment from "moment";
 import SelectBox from "react-native-multi-selectbox";
 import {ScrollView} from "react-native-gesture-handler";
+import {AppState} from "../../../redux/reducers";
+import {connect} from "react-redux";
+import {authGetDriverAction, authGetUserAction} from "../../../redux/actions/auth.actions";
+import {User} from "../../../models/entities/User";
+import {driversSelector, usersSelector} from "../../../redux/selectors/auth.selectors";
+import {localStorageService} from "../../../services/LocalStorageService";
+import Fontisto from "react-native-vector-icons/Fontisto";
+import {journeyCreateAction} from "src/redux/actions/journey.actions";
 
-interface Props {}
+interface Props {
+    drivers?: User[];
+    users?: User[];
+    getDriver: () => void;
+    getUser: () => void;
+    journeyCreate: any;
+}
 
 const CreateJourney: React.FC<Props> = function (props) {
+    const {drivers, users, getDriver, getUser, journeyCreate} = props;
     const journeyValidationSchema = yup.object().shape({
         start_location: yup.string().min(10).required("Start Location is required"),
         end_location: yup.string().min(10).required("Start Location is required"),
@@ -24,63 +39,12 @@ const CreateJourney: React.FC<Props> = function (props) {
         user_id: yup.number().required("please choose Driver"),
     });
     const [open, setOpen] = useState(false);
+    useEffect(() => {
+        getDriver();
+        getUser();
+    }, []);
 
-    const K_OPTIONS = [
-        {
-            item: "Juventus",
-            id: "JUVE",
-        },
-        {
-            item: "Real Madrid",
-            id: "RM",
-        },
-        {
-            item: "Barcelona",
-            id: "BR",
-        },
-        {
-            item: "PSG",
-            id: "PSG",
-        },
-        {
-            item: "FC Bayern Munich",
-            id: "FBM",
-        },
-        {
-            item: "Manchester United FC",
-            id: "MUN",
-        },
-        {
-            item: "Manchester City FC",
-            id: "MCI",
-        },
-        {
-            item: "Everton FC",
-            id: "EVE",
-        },
-        {
-            item: "Tottenham Hotspur FC",
-            id: "TOT",
-        },
-        {
-            item: "Chelsea FC",
-            id: "CHE",
-        },
-        {
-            item: "Liverpool FC",
-            id: "LIV",
-        },
-        {
-            item: "Arsenal FC",
-            id: "ARS",
-        },
-
-        {
-            item: "Leicester City FC",
-            id: "LEI",
-        },
-    ];
-
+    console.log(drivers, users);
     return (
         <View className="bg-white h-full w-full space-y-3   p-3">
             <Text className="text-black font-bold mt-20 mb-10 text-5xl">Create Journey</Text>
@@ -93,7 +57,9 @@ const CreateJourney: React.FC<Props> = function (props) {
                     user_id: "",
                 }}
                 validationSchema={journeyValidationSchema}
-                onSubmit={(values) => {}}
+                onSubmit={(values) => {
+                    journeyCreate({values});
+                }}
             >
                 {({handleSubmit, values, isValid, dirty, setFieldValue}) => (
                     <KeyboardAwareScrollView scrollEnabled={false}>
@@ -102,22 +68,22 @@ const CreateJourney: React.FC<Props> = function (props) {
                                 component={Input}
                                 name="start_location"
                                 placeholder="Start Location"
-                                iconName="location"
+                                iconName="home"
                                 keyboardType="email-address"
                             />
                             <Field
-                                iconName="end_location"
+                                iconName="home"
                                 component={Input}
                                 name="end_location"
                                 placeholder="End Location"
-                                keyboardType="numeric"
+                                keyboardType="email-address"
                             />
                             <View>
                                 <Pressable
                                     onPress={() => setOpen(true)}
                                     className=" flex w-full h-12 mb-2 rounded-xl flex-row justify-center bg-gray-200 items-center space-x-3 px-5 py-1 "
                                 >
-                                    <Icon name="date" size={24} />
+                                    <Fontisto name="date" size={24} />
 
                                     <Text className="text-black w-full">
                                         {moment(values.date).format("DD MMMM YYYY")}
@@ -136,25 +102,23 @@ const CreateJourney: React.FC<Props> = function (props) {
                                     }}
                                 />
                             )}
-                            <ScrollView>
-                                <SelectBox
-                                    id={30}
-                                    labelStyle={{color: "black", fontSize: 24}}
-                                    label="Select Driver"
-                                    options={K_OPTIONS}
-                                    value={values.driver_id}
-                                    onChange={(value: any) => {
-                                        setFieldValue("driver_id", value);
-                                    }}
-                                    hideInputFilter={false}
-                                />
-                            </ScrollView>
+                            <SelectBox
+                                id={30}
+                                labelStyle={{color: "black", fontSize: 24}}
+                                label="Select Driver"
+                                options={drivers?.map((driver) => ({item: driver.name, id: driver._id}))}
+                                value={values.driver_id}
+                                onChange={(value: any) => {
+                                    setFieldValue("driver_id", value);
+                                }}
+                                hideInputFilter={false}
+                            />
 
                             <SelectBox
                                 id={31}
                                 labelStyle={{color: "black", fontSize: 24}}
                                 label="Select User"
-                                options={K_OPTIONS}
+                                options={users?.map((driver) => ({item: driver.name, id: driver._id}))}
                                 value={values.user_id}
                                 onChange={(value: any) => {
                                     setFieldValue("user_id", value);
@@ -179,4 +143,15 @@ const CreateJourney: React.FC<Props> = function (props) {
 
 CreateJourney.defaultProps = {};
 
-export default React.memo(CreateJourney);
+const mapStateToProps = (state: AppState) => ({
+    drivers: driversSelector(state),
+    users: usersSelector(state),
+});
+
+const mapDispatchToProps = {
+    getDriver: authGetDriverAction,
+    getUser: authGetUserAction,
+    journeyCreate: journeyCreateAction,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(CreateJourney));

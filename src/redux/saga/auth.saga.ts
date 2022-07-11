@@ -4,6 +4,8 @@ import {
     authChangePasswordErrorAction,
     authFetchMeCompletedAction,
     authFetchMeErrorAction,
+    authGetDriverCompletedAction,
+    authGetUserCompletedAction,
     authLoginCompletedAction,
     authLoginErrorAction,
     authSignInCompletedAction,
@@ -17,12 +19,13 @@ import {authService} from "../../services/api-services/AuthService";
 import {errorFinder} from "../../utils/helpers";
 import {AuthActionType} from "../actions/actions.constants";
 import {StoreAction} from "../../models/commons/StoreAction";
+import {UserRole} from "../../models/enums/UserRole";
 
 function* loginSaga(data: StoreAction<AuthActionType>): any {
     try {
         const response = yield call(authService.login, data.payload);
         yield put(authLoginCompletedAction(response.user));
-        localStorageService.setAuthToken(response?.token);
+        yield localStorageService.setAuthToken(response?.token);
         toastService.showSuccess("Login Successful");
     } catch (e: any) {
         yield put(authLoginErrorAction(errorFinder(e)));
@@ -76,6 +79,24 @@ function* updateUserPasswordSaga(data: StoreAction<AuthActionType>): any {
     }
 }
 
+function* getDriver(data: StoreAction<AuthActionType>): any {
+    try {
+        const response = yield call(authService.getUser, UserRole.DRIVER);
+        yield put(authGetDriverCompletedAction(response.users));
+    } catch (e: any) {
+        toastService.showError(errorFinder(e));
+    }
+}
+
+function* getUser(data: StoreAction<AuthActionType>): any {
+    try {
+        const response = yield call(authService.getUser, UserRole.USER);
+        yield put(authGetUserCompletedAction(response.users));
+    } catch (e: any) {
+        toastService.showError(errorFinder(e));
+    }
+}
+
 function* logoutSaga(): any {
     localStorageService.removeAuthToken();
     toastService.showInfo("Logged Out");
@@ -90,6 +111,8 @@ function* authSaga() {
         takeLatest(AuthActionType.FETCH_ME, fetchLoggedInUserSaga),
         takeLatest(AuthActionType.LOGOUT, logoutSaga),
         takeLatest(AuthActionType.SIGNIN, signinSaga),
+        takeLatest(AuthActionType.GET_DRIVER, getDriver),
+        takeLatest(AuthActionType.GET_USER, getUser),
     ]);
 }
 

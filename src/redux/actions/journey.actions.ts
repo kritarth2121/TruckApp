@@ -1,6 +1,6 @@
 import {JourneyActionType} from "./actions.constants";
-import {StoreAction} from "models/commons/StoreAction";
-import {Journey} from "models/entities/Journey";
+import {StoreAction} from "../../models/commons/StoreAction";
+import {Journey} from "../../models/entities/Journey";
 
 export const journeyCreateAction = (payload: any): StoreAction<JourneyActionType> => ({
     type: JourneyActionType.CREATE,

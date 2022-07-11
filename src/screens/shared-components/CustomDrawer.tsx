@@ -8,9 +8,10 @@ import {userSelector} from "../../redux/selectors/auth.selectors";
 import {AppState} from "../../redux/reducers";
 import {User} from "../../models/entities/User";
 import {enumTextToOptionsText} from "../../utils/helpers";
+import { authLogoutAction } from "../../redux/actions/auth.actions";
 
 const CustomDrawer = (props: any) => {
-    const {user} = props;
+    const {user, logout} = props;
     return (
         <View style={{flex: 1}} className="bg-primary-500">
             <DrawerContentScrollView {...props}>
@@ -55,7 +56,7 @@ const CustomDrawer = (props: any) => {
                 </TouchableOpacity>
             </View>
             <View style={{padding: 20}}>
-                <TouchableOpacity onPress={() => {}} style={{paddingVertical: 15}}>
+                <TouchableOpacity style={{paddingVertical: 15}} onPress={() => logout()}>
                     <View className="flex flex-row space-x-3 items-center">
                         <Ionicons name="exit-outline" color="#fff" size={25} />
                         <Text className="text-white">Log Out</Text>
@@ -70,6 +71,8 @@ const mapStateToProps = (state: AppState) => ({
     user: userSelector(state),
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+    logout: authLogoutAction,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(React.memo(CustomDrawer));

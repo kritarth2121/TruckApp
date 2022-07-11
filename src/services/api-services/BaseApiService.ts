@@ -152,11 +152,12 @@ export class BaseApiService {
 
     generateHeaders = async (headers?: AxiosRequestHeaders, useAuth?: boolean) => {
         let defaultHeaders = {};
-
+        const token = await localStorageService.getAuthToken();
+        console.log(token, "fuck");
         if (useAuth) {
             defaultHeaders = {
                 ...defaultHeaders,
-                Authorization: `Bearer ${localStorageService.getAuthToken()}`,
+                Authorization: `Bearer ${token}`,
             };
         }
 

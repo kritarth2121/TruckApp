@@ -12,6 +12,7 @@ export enum UserRole {
 export interface User extends Entity {
     name: string;
     email: string;
+    _id: string;
     description?: string;
     pic_thumb_url?: string;
     pic_original_url?: string;

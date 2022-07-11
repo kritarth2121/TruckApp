@@ -8,6 +8,8 @@ export interface AuthState {
     user?: any;
     loading?: boolean;
     error?: string;
+    drivers?: User[];
+    users?: User[];
 }
 
 const initialState: AuthState = {};
@@ -38,6 +40,14 @@ export const authReducer: Reducer<AuthState> = (state = initialState, action: an
             }
             case AuthActionType.LOGOUT: {
                 draft.userID = undefined;
+                break;
+            }
+            case AuthActionType.GET_DRIVER_COMPLETED: {
+                draft.drivers = action.payload;
+                break;
+            }
+            case AuthActionType.GET_USER_COMPLETED: {
+                draft.users = action.payload;
                 break;
             }
             default:

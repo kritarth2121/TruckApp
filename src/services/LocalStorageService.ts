@@ -14,9 +14,7 @@ export class LocalStorageService {
     }
 
     async setLocalStorageValue(key: string, value: string): Promise<void> {
-        if (typeof AsyncStorage !== "undefined") {
-            await AsyncStorage?.setItem(key, value);
-        }
+        await AsyncStorage?.setItem(key, value);
     }
 
     async getLocalStorageValue(key: string): Promise<string | null> {
@@ -53,7 +51,7 @@ export class LocalStorageService {
     }
 
     async getAuthToken(): Promise<string | null> {
-        return this.getLocalStorageValue(AUTH_TOKEN);
+        return await this.getLocalStorageValue(AUTH_TOKEN);
     }
 
     removeAuthToken(): void {

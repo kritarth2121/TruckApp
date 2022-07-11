@@ -1,5 +1,5 @@
-import {StoreAction} from "models/commons/StoreAction";
-import {User} from "models/entities/User";
+import {StoreAction} from "../../models/commons/StoreAction";
+import {User} from "../../models/entities/User";
 import {AuthActionType} from "./actions.constants";
 
 export const authSignInAction = (payload: any): StoreAction<AuthActionType> => ({type: AuthActionType.SIGNIN, payload});
@@ -108,4 +108,22 @@ export const authResetPasswordErrorAction = (message: string): StoreAction<AuthA
 
 export const authLogoutAction = (): StoreAction<AuthActionType> => ({
     type: AuthActionType.LOGOUT,
+});
+
+export const authGetDriverAction = (): StoreAction<AuthActionType> => ({
+    type: AuthActionType.GET_DRIVER,
+});
+
+export const authGetDriverCompletedAction = (users: User[]): StoreAction<AuthActionType> => ({
+    type: AuthActionType.GET_DRIVER_COMPLETED,
+    payload: users,
+});
+
+export const authGetUserAction = (): StoreAction<AuthActionType> => ({
+    type: AuthActionType.GET_USER,
+});
+
+export const authGetUserCompletedAction = (users: User[]): StoreAction<AuthActionType> => ({
+    type: AuthActionType.GET_USER_COMPLETED,
+    payload: users,
 });
