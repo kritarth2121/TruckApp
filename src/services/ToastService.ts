@@ -18,19 +18,19 @@ class ToastService {
     }
 
     showError(content: string) {
-        // ToastAndroid.show(content, ToastAndroid.SHORT);
+        ToastAndroid.show(content, ToastAndroid.SHORT);
     }
 
     showInfo(content: string) {
-        ToastAndroid.show(content, ToastAndroid.SHORT);
-    }
-
-    showSuccess(content: string) {
         // ToastAndroid.show(content, ToastAndroid.SHORT);
     }
 
-    showWarning(content: string) {
+    showSuccess(content: string) {
         ToastAndroid.show(content, ToastAndroid.SHORT);
+    }
+
+    showWarning(content: string) {
+        // ToastAndroid.show(content, ToastAndroid.SHORT);
     }
 }
 

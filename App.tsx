@@ -7,11 +7,19 @@ import useColorScheme from "./src/hooks/useColorScheme";
 import Navigation from "./src/screens/navigation";
 import {store} from "./src/redux/saga/sagas";
 import "react-native-gesture-handler";
+import {View, Text, ImageBackground, Image, TouchableOpacity} from "react-native";
+import * as Font from "expo-font";
+import {useEffect} from "react";
 
 export default function App() {
     const isLoadingComplete = useCachedResources();
     const colorScheme = useColorScheme();
-
+    useEffect(() => {
+        (async () =>
+            await Font.loadAsync({
+                Gilroy: require("./src/assets/fonts/Gilroy-Black.ttf"),
+            }))();
+    }, []);
     if (!isLoadingComplete) {
         return null;
     } else {
@@ -27,3 +35,6 @@ export default function App() {
         );
     }
 }
+// Text.defaultProps = Text.defaultProps || {};
+
+// Text.defaultProps.style = {fontFamily: "Gilroy"};

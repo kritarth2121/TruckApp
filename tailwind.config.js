@@ -23,6 +23,12 @@ module.exports = {
                     hint: "#0000006b",
                 },
             },
+
+            fontFamily: {
+                gilroy: "Gilroy",
+                openSans: "Open Sans, sans-serif",
+                merriWeather: "Merriweather, serif"
+              },
             flex: {
                 full: "1 1 100%",
             },

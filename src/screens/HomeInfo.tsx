@@ -15,7 +15,6 @@ interface Props {
 }
 
 const HomeInfo: React.FC<Props> = function (props) {
-
     const {user, fetchMe} = props;
     const navigate = useNavigation();
 

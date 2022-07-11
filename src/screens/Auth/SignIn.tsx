@@ -73,7 +73,14 @@ const SignIn: React.FC<Props> = function (props) {
                 {({handleSubmit, isValid, dirty}) => (
                     <KeyboardAwareScrollView scrollEnabled={true}>
                         <View className="flex flex-col overflow-y-scroll">
-                            <Field component={Input} name="name" iconName="user" placeholder="Full Name" />
+                            <Field
+                                component={Input}
+                                name="name"
+                                iconName="user"
+                                keyboardType="email-address"
+                                placeholder="Full Name"
+                            />
+
                             <Field
                                 component={Input}
                                 name="email"

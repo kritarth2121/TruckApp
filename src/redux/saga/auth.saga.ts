@@ -40,9 +40,9 @@ function* signinSaga(data: StoreAction<AuthActionType>): any {
     try {
         const response = yield call(authService.create, data.payload);
         yield put(authSignInCompletedAction(response.user));
-        localStorageService.setAuthToken(response?.token);
-        RootNavigation.navigate("app");
+        yield localStorageService.setAuthToken(response?.token);
         toastService.showSuccess("Account Created Successfully");
+        RootNavigation.navigate("app");
     } catch (e: any) {
         yield put(authSignInErrorAction(errorFinder(e)));
         toastService.showError(errorFinder(e));
