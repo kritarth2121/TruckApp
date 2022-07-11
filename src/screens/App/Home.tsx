@@ -70,7 +70,7 @@ const Home: React.FC<Props> = function (props) {
                         getValue("");
                     }}
                 >
-                    <Text className="text-white font-bold text-sm">View All</Text>
+                    <Text className="text-white  text-sm">View All</Text>
                 </Pressable>
             </View>
             <FlatList

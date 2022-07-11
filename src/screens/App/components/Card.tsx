@@ -23,7 +23,7 @@ const Card: React.FC<Props> = function (props) {
                 <Text className="text-gray-500  text-xs">2 hr 45min</Text>
             </View>
             <View className="flex flex-row ">
-                <Text className="  text-base font-bold">
+                <Text className="  text-base ">
                     {item.start_location} to {item.end_location}
                 </Text>
             </View>

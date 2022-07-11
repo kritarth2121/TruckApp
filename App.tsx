@@ -10,10 +10,28 @@ import "react-native-gesture-handler";
 import {View, Text, ImageBackground, Image, TouchableOpacity} from "react-native";
 import * as Font from "expo-font";
 import {useEffect} from "react";
+import {
+    setCustomView,
+    setCustomTextInput,
+    setCustomText,
+    setCustomImage,
+    setCustomTouchableOpacity,
+} from "react-native-global-props";
 
 export default function App() {
     const isLoadingComplete = useCachedResources();
     const colorScheme = useColorScheme();
+    const customTextInputProps = {
+        style: {
+            fontFamily: "Gilroy",
+        },
+    };
+    const customTextProps = {
+        style: {
+            fontFamily: "Gilroy",
+        },
+    };
+
     useEffect(() => {
         (async () =>
             await Font.loadAsync({
@@ -23,6 +41,8 @@ export default function App() {
     if (!isLoadingComplete) {
         return null;
     } else {
+        setCustomTextInput(customTextInputProps);
+        setCustomText(customTextProps);
         return (
             <SafeAreaProvider>
                 <ReduxProvider store={store}>
@@ -35,6 +55,3 @@ export default function App() {
         );
     }
 }
-// Text.defaultProps = Text.defaultProps || {};
-
-// Text.defaultProps.style = {fontFamily: "Gilroy"};
