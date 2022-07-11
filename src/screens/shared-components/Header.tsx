@@ -10,7 +10,7 @@ const Header: React.FC<Props> = function (props) {
     const navigation = useNavigation();
 
     return (
-        <View className="flex flex-row justify-between">
+        <View className="flex flex-row justify-between mt-10">
             <Icon name="menu" size={30} color="#000" onPress={() => navigation.dispatch(DrawerActions.openDrawer)} />
             <FontAwesome name="bell" size={25} color="#1A85E7" />
         </View>

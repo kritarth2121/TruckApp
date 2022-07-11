@@ -88,7 +88,7 @@ const AppStack = (props: Props) => {
                                 }}
                             />
                             <Drawer.Screen
-                                name="All-Journeys"
+                                name="All Journeys"
                                 options={{
                                     drawerIcon: ({color}) => <FontAwesome name="group" size={22} color={color} />,
                                 }}

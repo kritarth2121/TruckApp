@@ -35,9 +35,12 @@ const Home: React.FC<Props> = function (props) {
             fetchDriver(itemValue);
         }
     };
+    useEffect(() => {
+        getValue("");
+    }, []);
 
     return (
-        <View className="bg-white h-full w-full pt-10 px-3">
+        <View className="bg-white h-full w-full  px-2">
             <Header />
             <View className="mt-10">
                 <Text className="text-4xl">

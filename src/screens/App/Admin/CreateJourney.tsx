@@ -33,8 +33,8 @@ interface Props {
 const CreateJourney: React.FC<Props> = function (props) {
     const {drivers, users, getDriver, getUser, journeyCreate} = props;
     const journeyValidationSchema = yup.object().shape({
-        start_location: yup.string().min(10).required("Start Location is required"),
-        end_location: yup.string().min(10).required("Start Location is required"),
+        start_location: yup.string().min(5).required("Start Location is required"),
+        end_location: yup.string().min(5).required("Start Location is required"),
         date: yup.date().typeError("Please enter valid Date").required("Date is required"),
         driver_id: yup.mixed().required("please choose Driver"),
         user_id: yup.mixed().required("please choose Driver"),
@@ -47,7 +47,7 @@ const CreateJourney: React.FC<Props> = function (props) {
 
     console.log(drivers, users);
     return (
-        <View className="bg-white h-full w-full space-y-3   p-3">
+        <View className="bg-white h-full w-full space-y-3  p-3">
             <Header />
             <Text className="text-black font-bold mt-20 mb-10 text-5xl">Create Journey</Text>
             <Formik

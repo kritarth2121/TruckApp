@@ -12,12 +12,14 @@ import {
 import {toastService} from "../../services/ToastService";
 import {errorFinder} from "../../utils/helpers";
 import {StoreAction} from "../../models/commons/StoreAction";
+import * as RootNavigation from "../../RootNavigation";
 
 function* createJourney(data: StoreAction<JourneyActionType>): any {
     try {
         const response = yield call(journeyService.create, data.payload);
         yield put(journeyCreateCompletedAction(response.journey));
         toastService.showSuccess("Journey Created Successfully");
+        RootNavigation.navigate("All Journeys");
     } catch (e: any) {
         yield put(journeyCreateErrorAction(errorFinder(e)));
         toastService.showError(errorFinder(e));
@@ -26,7 +28,6 @@ function* createJourney(data: StoreAction<JourneyActionType>): any {
 
 function* fetchJourney(data: StoreAction<JourneyActionType>): any {
     try {
-        console.log(data.payload, "check");
         const response = yield call(journeyService.fetchAll, data.payload);
         yield put(journeyFetchCompletedAction(response.journeys));
     } catch (e: any) {
