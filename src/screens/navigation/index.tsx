@@ -4,10 +4,11 @@ import AppStack from "../shared-components/AppStack";
 import Login from "../Auth/Login";
 import SignIn from "../Auth/SignIn";
 import HomeInfo from "../HomeInfo";
+import { navigationRef } from "../../RootNavigation";
 
 export default function Navigation() {
     return (
-        <NavigationContainer>
+        <NavigationContainer ref={navigationRef}>
             <RootNavigator />
         </NavigationContainer>
     );

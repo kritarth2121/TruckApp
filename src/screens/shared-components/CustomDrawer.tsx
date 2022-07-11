@@ -21,7 +21,7 @@ const CustomDrawer = (props: any) => {
                     <Image
                         className="rounded-full h-20 w-20"
                         source={{
-                            uri: "https://reactnative.dev/img/tiny_logo.png",
+                            uri: "https://picsum.photos/200/300",
                         }}
                     />
                     <Text

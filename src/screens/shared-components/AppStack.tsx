@@ -40,12 +40,13 @@ const AppStack = (props: Props) => {
             fetchAll();
         }
     }, [user]);
+
     const [loggedin, setLoggedIn] = useState(true);
 
     useEffect(() => {
-        console.log("fucked");
         getToken();
     }, []);
+
     const navigate = useNavigation();
 
     const getToken = async () => {

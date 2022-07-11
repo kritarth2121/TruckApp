@@ -35,7 +35,6 @@ const Home: React.FC<Props> = function (props) {
             fetchDriver(itemValue);
         }
     };
-    console.log(selectedStatus);
 
     return (
         <View className="bg-white h-full w-full pt-10 px-3">

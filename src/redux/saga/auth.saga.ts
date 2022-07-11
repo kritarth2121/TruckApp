@@ -20,6 +20,7 @@ import {errorFinder} from "../../utils/helpers";
 import {AuthActionType} from "../actions/actions.constants";
 import {StoreAction} from "../../models/commons/StoreAction";
 import {UserRole} from "../../models/enums/UserRole";
+import * as RootNavigation from "../../RootNavigation";
 
 function* loginSaga(data: StoreAction<AuthActionType>): any {
     try {
@@ -27,6 +28,7 @@ function* loginSaga(data: StoreAction<AuthActionType>): any {
         yield put(authLoginCompletedAction(response.user));
         yield localStorageService.setAuthToken(response?.token);
         toastService.showSuccess("Login Successful");
+        RootNavigation.navigate("app");
     } catch (e: any) {
         yield put(authLoginErrorAction(errorFinder(e)));
         console.log(e);
@@ -39,6 +41,7 @@ function* signinSaga(data: StoreAction<AuthActionType>): any {
         const response = yield call(authService.create, data.payload);
         yield put(authSignInCompletedAction(response.user));
         localStorageService.setAuthToken(response?.token);
+        RootNavigation.navigate("app");
         toastService.showSuccess("Account Created Successfully");
     } catch (e: any) {
         yield put(authSignInErrorAction(errorFinder(e)));
