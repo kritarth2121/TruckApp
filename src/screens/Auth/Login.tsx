@@ -70,7 +70,7 @@ const Login: React.FC<Props> = function (props) {
                     </>
                 )}
             </Formik>
-            <View className="flex flex-row w-full text-center justify-center absolute bottom-10">
+            <View className="flex flex-row w-full text-center justify-center absolute bottom-3">
                 <Text>Dont Have a account ?</Text>
                 <Text className="text-primary-500" onPress={() => navigation.navigate("sign-up" as any)}>
                     Sign Up

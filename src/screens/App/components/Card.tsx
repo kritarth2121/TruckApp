@@ -1,6 +1,7 @@
+import {useNavigation} from "@react-navigation/native";
 import moment from "moment";
 import React from "react";
-import {View, Image, Text} from "react-native";
+import {View, Image, Text, Pressable} from "react-native";
 import {Journey} from "../../../models/entities/Journey";
 
 interface Props {
@@ -10,8 +11,10 @@ interface Props {
 const Card: React.FC<Props> = function (props) {
     const {item} = props;
     console.log(item);
+    const navigation = useNavigation();
+
     return (
-        <View className="w-1/2 p-3 h-full">
+        <Pressable className="w-1/2 p-3 h-full" onPress={() => navigation.navigate("card-status" as any)}>
             <Image
                 source={{
                     uri: "https://picsum.photos/200/300",
@@ -30,7 +33,7 @@ const Card: React.FC<Props> = function (props) {
             <View className="flex flex-row justify-between">
                 <Text className="text-gray-500  text-xs">{moment(item.date).format("DD MMMM YYYY")}</Text>
             </View>
-        </View>
+        </Pressable>
     );
 };
 

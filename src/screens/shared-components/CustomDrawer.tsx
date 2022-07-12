@@ -20,7 +20,7 @@ const CustomDrawer = (props: any) => {
                 <View className="w-full pl-3 pt-20 flex flex-col justify-start">
                     <Image
                         source={require("../../../src/assets/images/run core final logo.png")}
-                        className="h-10 w-full"
+                        className="h-4 mb-3 w-full"
                     />
 
                     <Image

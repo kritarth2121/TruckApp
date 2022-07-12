@@ -50,5 +50,9 @@ export enum JourneyActionType {
 
     FETCH_DRIVER ="journey/driver",
     FETCH_DRIVER_COMPLETED="journey/driver/completed",
-    FETCH_DRIVER_ERROR="journey/driver/error"
+    FETCH_DRIVER_ERROR="journey/driver/error",
+
+    UPDATE_STAUS="journey/update/status",
+    UPDATE_STAUS_COMPLETED="journey/update/status/completed",
+    UPDATE_STAUS_ERROR="journey/update/status/error",
 }

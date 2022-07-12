@@ -46,11 +46,24 @@ function* fetchDriverJourney(data: StoreAction<JourneyActionType>): any {
     }
 }
 
+function* updateJourneyStatus(data: StoreAction<JourneyActionType>): any {
+    const {id, status} = data.payload;
+    try {
+        const response = yield call(journeyService.updateStatus, id, status);
+        yield put(journeyCreateCompletedAction(response.journey));
+        toastService.showSuccess("Journey Status Updated Successfully");
+    } catch (e: any) {
+        yield put(journeyCreateErrorAction(errorFinder(e)));
+        toastService.showError(errorFinder(e));
+    }
+}
+
 function* journeySaga() {
     yield all([
         takeLatest(JourneyActionType.CREATE, createJourney),
         takeLatest(JourneyActionType.FETCH_ALL, fetchJourney),
         takeLatest(JourneyActionType.FETCH_DRIVER, fetchDriverJourney),
+        takeLatest(JourneyActionType.UPDATE_STAUS, updateJourneyStatus),
     ]);
 }
 

@@ -17,7 +17,6 @@ export const journeyCreateErrorAction = (message: string): StoreAction<JourneyAc
     payload: message,
 });
 
-
 export const journeyFetchAction = (payload: any): StoreAction<JourneyActionType> => ({
     type: JourneyActionType.FETCH_ALL,
     payload,
@@ -45,5 +44,20 @@ export const journeyFetchDriverCompletedAction = (journeys: Journey[]): StoreAct
 
 export const journeyFetchDriverErrorAction = (message: string): StoreAction<JourneyActionType> => ({
     type: JourneyActionType.FETCH_DRIVER_ERROR,
+    payload: message,
+});
+
+export const journeyUpdateStatusAction = (payload: any): StoreAction<JourneyActionType> => ({
+    type: JourneyActionType.UPDATE_STAUS,
+    payload,
+});
+
+export const journeyUpdateStatusCompletedAction = (journey: Journey): StoreAction<JourneyActionType> => ({
+    type: JourneyActionType.UPDATE_STAUS_COMPLETED,
+    payload: journey,
+});
+
+export const journeyUpdateStatusErrorAction = (message: string): StoreAction<JourneyActionType> => ({
+    type: JourneyActionType.UPDATE_STAUS_ERROR,
     payload: message,
 });

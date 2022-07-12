@@ -26,6 +26,13 @@ class JourneyService {
             },
         });
     }
+    async updateStatus(id: number, status: JourneyStatus): Promise<{journeys: Journey[]}> {
+        return baseApiService.put(`/journeys/${id}`, {
+            params: {
+                status,
+            },
+        });
+    }
 }
 
 export const journeyService = JourneyService.getInstance();
