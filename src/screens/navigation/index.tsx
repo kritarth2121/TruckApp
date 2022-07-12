@@ -1,6 +1,6 @@
 import {NavigationContainer, DefaultTheme, DarkTheme} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import AppStack from "../shared-components/AppStack";
+import AppStack from "./AppStack";
 import Login from "../Auth/Login";
 import SignIn from "../Auth/SignIn";
 import HomeInfo from "../HomeInfo";

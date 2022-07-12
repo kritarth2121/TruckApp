@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import CustomDrawer from "./CustomDrawer";
+import CustomDrawer from "../shared-components/CustomDrawer";
 import Home from "../App/Driver/Home";
 import {ActivityIndicator, View} from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -18,7 +18,9 @@ import {localStorageService} from "../../services/LocalStorageService";
 import {useNavigation} from "@react-navigation/native";
 import {authFetchMeAction} from "../../redux/actions/auth.actions";
 import {setAutoFreeze} from "immer";
-import { DriverNavigator } from "../App/Driver/DriverNavigator";
+import {DriverNavigator} from "../App/Driver/DriverNavigator";
+import Notifications from "../App/Driver/Notifications";
+import History from "../App/Driver/History";
 
 const Drawer = createDrawerNavigator();
 
@@ -42,7 +44,6 @@ const AppStack = (props: Props) => {
         }
     }, [user]);
 
-    const [loggedin, setLoggedIn] = useState(true);
 
     useEffect(() => {
         getToken();
@@ -68,7 +69,7 @@ const AppStack = (props: Props) => {
                 </View>
             ) : (
                 <Drawer.Navigator
-                    drawerContent={(props) => <CustomDrawer setAuthToken={setLoggedIn} {...props} />}
+                    drawerContent={(props) => <CustomDrawer  {...props} />}
                     screenOptions={{
                         headerShown: false,
                         drawerActiveTintColor: "#fff",
@@ -108,14 +109,14 @@ const AppStack = (props: Props) => {
                     )}
                     <Drawer.Screen
                         name="History"
-                        component={Home}
+                        component={History}
                         options={{
                             drawerIcon: ({color}) => <FontAwesome name="history" size={22} color={color} />,
                         }}
                     />
                     <Drawer.Screen
                         name="Notifications"
-                        component={Home}
+                        component={Notifications}
                         options={{
                             drawerIcon: ({color}) => <MaterialIcons name="verified" size={22} color={color} />,
                         }}

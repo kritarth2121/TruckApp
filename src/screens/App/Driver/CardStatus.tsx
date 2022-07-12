@@ -26,7 +26,7 @@ const CardStatus: React.FC<Props> = function (props) {
     console.log(route, height);
     const {journeyCollection, updateStatus} = props;
     const journey = journeyCollection[items._id];
-    const finalStaus = journey.status === JourneyStatus.NEW ? JourneyStatus.PENDING : JourneyStatus.COMPLETED;
+    const finalStaus = journey?.status === JourneyStatus.NEW ? JourneyStatus.PENDING : JourneyStatus.COMPLETED;
 
     return (
         <View className="h-full w-full">
@@ -37,10 +37,10 @@ const CardStatus: React.FC<Props> = function (props) {
                 style={{height: height - 100}}
             />
             <View className=" bg-white rounded-t-xl absolute w-full h-48 bottom-0 pt-5 px-4 ">
-                {items.status !== JourneyStatus.COMPLETED ? (
+                {journey?.status !== JourneyStatus.COMPLETED ? (
                     <Button
-                        onPress={updateStatus({id: journey._id, status: finalStaus})}
-                        title={items.status === JourneyStatus.NEW ? "Start Journey" : "End Journey"}
+                        onPress={() => updateStatus({id: journey?._id, status: finalStaus})}
+                        title={journey?.status === JourneyStatus.NEW ? "Start Journey" : "End Journey"}
                     />
                 ) : (
                     <Button title="Completed" extraClass={cx("opacity-50")} />
@@ -53,7 +53,7 @@ const CardStatus: React.FC<Props> = function (props) {
                                 Pick Up
                             </Text>
                             <Text className="text-gray-600" style={{fontFamily: "Gilroy_Medium"}}>
-                                Pick Up
+                                {journey?.start_location}
                             </Text>
                         </View>
                     </View>
@@ -64,7 +64,7 @@ const CardStatus: React.FC<Props> = function (props) {
                                 Drop off
                             </Text>
                             <Text className="text-gray-600" style={{fontFamily: "Gilroy_Medium"}}>
-                                rrrrrrrrrrrrrrrrrrrrrrrr{" "}
+                                {journey?.end_location}{" "}
                             </Text>
                         </View>
                     </View>

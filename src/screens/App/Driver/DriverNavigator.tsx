@@ -6,7 +6,7 @@ const Stack = createNativeStackNavigator();
 
 export const DriverNavigator = () => {
     return (
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName="all">
             <Stack.Screen name="all" options={{headerShown: false}}>
                 {(props) => <Home type="driver" />}
             </Stack.Screen>

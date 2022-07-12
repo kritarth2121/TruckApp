@@ -27,12 +27,7 @@ export const journeyReducer: Reducer<JourneyState> = (state = initialState, acti
                 const journeys = action.payload;
                 draft.entities = {};
                 journeys.forEach((g: Journey) => {
-                    const entity = draft.entities[g._id];
-                    if (!entity) {
-                        draft.entities[g._id] = g;
-                    } else {
-                        draft.entities[g._id] = {...draft.entities[g._id], ...g};
-                    }
+                    draft.entities[g._id] = g;
                 });
                 break;
             }
@@ -46,10 +41,8 @@ export const journeyReducer: Reducer<JourneyState> = (state = initialState, acti
             }
             case JourneyActionType.UPDATE_STAUS_COMPLETED: {
                 const journey = action.payload as Journey;
-                draft.entities[journey._id] = {
-                    ...draft.entities[journey._id],
-                    ...journey,
-                };
+                draft.entities[journey._id] = journey,
+                
                 draft.loadingOne = false;
                 break;
             }
