@@ -27,7 +27,7 @@ const Button: React.FC<Props> = function (props) {
                 extraClass
             )}
         >
-            <Text className="text-white font-gilroy text-xl">{title}</Text>
+            <Text className="text-white  text-xl">{title}</Text>
         </Pressable>
     );
 };

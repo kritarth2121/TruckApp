@@ -24,12 +24,12 @@ export default function App() {
     const colorScheme = useColorScheme();
     const customTextInputProps = {
         style: {
-            fontFamily: "Gilroy",
+            fontFamily: "Gilroy_Medium",
         },
     };
     const customTextProps = {
         style: {
-            fontFamily: "Gilroy",
+            fontFamily: "Gilroy_Medium",
         },
     };
 
@@ -37,6 +37,13 @@ export default function App() {
         (async () =>
             await Font.loadAsync({
                 Gilroy: require("./src/assets/fonts/Gilroy-Regular.ttf"),
+                Gilroy_Black: require("./src/assets/fonts/Gilroy-Black.ttf"),
+                Gilroy_Bold: require("./src/assets/fonts/Gilroy-Bold.ttf"),
+                Gilroy_Extrabold: require("./src/assets/fonts/Gilroy-ExtraBold.ttf"),
+                Gilroy_Medium: require("./src/assets/fonts/Gilroy-Medium.ttf"),
+                Gilroy_SemiBold: require("./src/assets/fonts/Gilroy-SemiBold.ttf"),
+                Gilroy_Thin: require("./src/assets/fonts/Gilroy-Thin.ttf"),
+                Gilroy_UltraLight: require("./src/assets/fonts/Gilroy-UltraLight.ttf"),
             }))();
     }, []);
     if (!isLoadingComplete) {
@@ -44,6 +51,7 @@ export default function App() {
     } else {
         setCustomTextInput(customTextInputProps);
         setCustomText(customTextProps);
+
         return (
             <SafeAreaProvider>
                 <ReduxProvider store={store}>

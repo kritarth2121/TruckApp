@@ -49,7 +49,7 @@ const CreateJourney: React.FC<Props> = function (props) {
     return (
         <View className="bg-white h-full w-full space-y-3  p-3">
             <Header />
-            <Text className="text-black font-bold mt-20 mb-10 text-5xl">Create Journey</Text>
+            <Text className="text-black mt-20 mb-10 text-5xl"  style={{fontFamily: "Gilroy_Bold"}}>Create Journey</Text>
             <Formik
                 initialValues={{
                     start_location: "",

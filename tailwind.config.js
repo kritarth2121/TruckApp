@@ -2,6 +2,18 @@
 module.exports = {
     content: ["./src/**/*.{js,jsx,ts,tsx}", "./App.tsx"],
     theme: {
+        fontFamily: {
+            gilroy: "Gilroy",
+            "gilroy-bold": "Gilroy_Bold",
+            "gilroy-thin": "Gilroy_Thin",
+            "gilroy-medium": "Gilroy_Medium",
+            "gilroy-semibold": "Gilroy_SemiBold",
+            "gilroy-extrabold": "Gilroy_Extrabold",
+            "gilroy-black": "Gilroy_Black",
+
+            openSans: "Open Sans, sans-serif",
+            merriWeather: "Merriweather, serif",
+        },
         extend: {
             spacing: {
                 15: "3.75rem",
@@ -24,11 +36,6 @@ module.exports = {
                 },
             },
 
-            fontFamily: {
-                gilroy: "Gilroy",
-                openSans: "Open Sans, sans-serif",
-                merriWeather: "Merriweather, serif"
-              },
             flex: {
                 full: "1 1 100%",
             },

@@ -46,9 +46,16 @@ const Home: React.FC<Props> = function (props) {
         <View className="bg-white h-full w-full  px-2">
             <Header />
             <View className="mt-10">
-                <Text className="text-4xl font-bold">
-                    The best <Text className="text-primary-500 font-bold">shipping</Text> and{" "}
-                    <Text className="text-primary-500 font-bold">delivery</Text> in your country
+                <Text className="text-4xl " style={{fontFamily: "Gilroy_Bold"}}>
+                    The best{" "}
+                    <Text className="text-primary-500 " style={{fontFamily: "Gilroy_Bold"}}>
+                        shipping
+                    </Text>{" "}
+                    and{" "}
+                    <Text className="text-primary-500 " style={{fontFamily: "Gilroy_Bold"}}>
+                        delivery
+                    </Text>{" "}
+                    in your country
                 </Text>
             </View>
             <View className="w-full flex flex-row justify-between">
