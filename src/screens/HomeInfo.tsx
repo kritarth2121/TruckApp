@@ -38,10 +38,10 @@ const HomeInfo: React.FC<Props> = function (props) {
         <Pressable className="bg-blue-500  flex flex-col items-center justify-center h-full w-full">
             <View className="p-4 flex flex-col items-center justify-center h-full w-full">
                 <Image
-                    source={require("../../src/assets/images/run core final logo.png")}
-                    className="h-10 w-96 mx-auto"
+                    source={require("../../src/assets/images/icon.png")}
+                    className="h-8 w-72 mx-auto"
                 />
-                <Image source={require("../../src/assets/images/Group 127.png")} className="h-96 w-96 mx-auto" />
+                <Image source={require("../../src/assets/images/Group127.png")} className="h-96 w-96 mx-auto" />
                 <Text className="text-white text-3xl" style={{fontFamily: "Gilroy_Bold"}}>
                     The best app for shipping and delievey in your country
                 </Text>
