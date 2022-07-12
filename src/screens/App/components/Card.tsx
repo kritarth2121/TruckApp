@@ -14,7 +14,10 @@ const Card: React.FC<Props> = function (props) {
     const navigation = useNavigation();
 
     return (
-        <Pressable className="w-1/2 p-3 h-full" onPress={() => navigation.navigate("card-status" as any)}>
+        <Pressable
+            className="w-1/2 p-3 h-full"
+            onPress={() => navigation.navigate({name: "card-status" as never, params: {items: item} as never})}
+        >
             <Image
                 source={{
                     uri: "https://picsum.photos/200/300",

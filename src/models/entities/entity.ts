@@ -1,5 +1,5 @@
 export interface Entity {
-  id: number;
+  _id: string;
 }
 
 export interface EntityMap<T extends Entity> {
