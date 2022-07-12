@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from "react";
-import {View, Text, Pressable, FlatList} from "react-native";
+import {View, Text, Pressable, FlatList, ActivityIndicator} from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import cx from "classnames";
@@ -11,7 +11,7 @@ import {DrawerActions, useNavigation} from "@react-navigation/native";
 import Header from "../../shared-components/Header";
 import {connect} from "react-redux";
 import {journeyFetchAction, journeyFetchDriverAction} from "../../../redux/actions/journey.actions";
-import {journeyList, journeyDriverList} from "../../../redux/selectors/journey.selector";
+import {journeyList, journeyDriverList, journeyLoadingList} from "../../../redux/selectors/journey.selector";
 import {AppState} from "../../../redux/reducers";
 import {UserRole} from "../../../models/enums/UserRole";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
@@ -20,6 +20,7 @@ import {Journey} from "../../../models/entities/Journey";
 
 interface Props {
     type: string;
+    loading?: boolean;
     fetchAll: any;
     fetchDriver: any;
     list?: Journey[];
@@ -30,7 +31,7 @@ const Stack = createNativeStackNavigator();
 const Home: React.FC<Props> = function (props) {
     const [selectedStatus, setSelectedStatus] = useState("");
 
-    const {type, driverJourneyList, list, fetchAll, fetchDriver} = props;
+    const {type, driverJourneyList, list, fetchAll, fetchDriver, loading} = props;
     const getValue = (itemValue: string) => {
         if (type === UserRole.ADMIN) {
             fetchAll(itemValue);
@@ -83,6 +84,7 @@ const Home: React.FC<Props> = function (props) {
                     <Text className="text-white  text-sm">View All</Text>
                 </Pressable>
             </View>
+            {loading && <ActivityIndicator size="large" color="#1A85E7" />}
             <FlatList
                 data={type === UserRole.ADMIN ? list : driverJourneyList}
                 numColumns={2}
@@ -96,6 +98,7 @@ Home.defaultProps = {};
 
 const mapStateToProps = (state: AppState) => ({
     list: journeyList(state),
+    loading: journeyLoadingList(state),
     driverJourneyList: journeyDriverList(state),
 });
 

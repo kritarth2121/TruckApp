@@ -8,6 +8,8 @@ import {
     journeyFetchErrorAction,
     journeyFetchDriverCompletedAction,
     journeyFetchDriverErrorAction,
+    journeyUpdateStatusCompletedAction,
+    journeyUpdateStatusErrorAction,
 } from "../../redux/actions/journey.actions";
 import {toastService} from "../../services/ToastService";
 import {errorFinder} from "../../utils/helpers";
@@ -50,10 +52,10 @@ function* updateJourneyStatus(data: StoreAction<JourneyActionType>): any {
     const {id, status} = data.payload;
     try {
         const response = yield call(journeyService.updateStatus, id, status);
-        yield put(journeyCreateCompletedAction(response.journey));
+        yield put(journeyUpdateStatusCompletedAction(response.journey));
         toastService.showSuccess("Journey Status Updated Successfully");
     } catch (e: any) {
-        yield put(journeyCreateErrorAction(errorFinder(e)));
+        yield put(journeyUpdateStatusErrorAction(errorFinder(e)));
         toastService.showError(errorFinder(e));
     }
 }

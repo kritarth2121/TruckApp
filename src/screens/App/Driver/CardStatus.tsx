@@ -1,6 +1,6 @@
 import {useNavigation, useRoute} from "@react-navigation/native";
 import React from "react";
-import {View, Text, Image, Dimensions} from "react-native";
+import {View, Text, Image, Dimensions, ActivityIndicator} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Header from "../../shared-components/Header";
@@ -10,21 +10,20 @@ import cx from "classnames";
 import {connect} from "react-redux";
 import {journeyUpdateStatusAction} from "../../../redux/actions/journey.actions";
 import {AppState} from "../../../redux/reducers";
-import {journeyDriverCollection} from "../../../redux/selectors/journey.selector";
+import {journeyDriverCollection, journeyLoading} from "../../../redux/selectors/journey.selector";
 import {Journey} from "../../../models/entities/Journey";
 
 interface Props {
     journeyCollection: {[id: string]: Journey};
     updateStatus: any;
+    loadingOne?: boolean;
 }
 
 const CardStatus: React.FC<Props> = function (props) {
-    const navigation = useNavigation();
     const route = useRoute();
     const {items} = route.params as any;
     const height = Dimensions.get("window").height || 100;
-    console.log(route, height);
-    const {journeyCollection, updateStatus} = props;
+    const {journeyCollection, updateStatus, loadingOne} = props;
     const journey = journeyCollection[items._id];
     const finalStaus = journey?.status === JourneyStatus.NEW ? JourneyStatus.PENDING : JourneyStatus.COMPLETED;
 
@@ -37,6 +36,7 @@ const CardStatus: React.FC<Props> = function (props) {
                 style={{height: height - 100}}
             />
             <View className=" bg-white rounded-t-xl absolute w-full h-48 bottom-0 pt-5 px-4 ">
+                {loadingOne && <ActivityIndicator size="large" color="#1A85E7" />}
                 {journey?.status !== JourneyStatus.COMPLETED ? (
                     <Button
                         onPress={() => updateStatus({id: journey?._id, status: finalStaus})}
@@ -78,6 +78,7 @@ CardStatus.defaultProps = {};
 
 const mapStateToProps = (state: AppState) => ({
     journeyCollection: journeyDriverCollection(state),
+    loadingOne: journeyLoading(state),
 });
 
 const mapDispatchToProps = {

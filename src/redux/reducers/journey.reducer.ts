@@ -41,8 +41,7 @@ export const journeyReducer: Reducer<JourneyState> = (state = initialState, acti
             }
             case JourneyActionType.UPDATE_STAUS_COMPLETED: {
                 const journey = action.payload as Journey;
-                draft.entities[journey._id] = journey,
-                
+                draft.entities[journey._id] = journey;
                 draft.loadingOne = false;
                 break;
             }
