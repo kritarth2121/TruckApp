@@ -17,6 +17,7 @@ import {
     setCustomImage,
     setCustomTouchableOpacity,
 } from "react-native-global-props";
+import React from "react";
 
 export default function App() {
     const isLoadingComplete = useCachedResources();
@@ -35,7 +36,7 @@ export default function App() {
     useEffect(() => {
         (async () =>
             await Font.loadAsync({
-                Gilroy: require("./src/assets/fonts/Gilroy-Black.ttf"),
+                Gilroy: require("./src/assets/fonts/Gilroy-Regular.ttf"),
             }))();
     }, []);
     if (!isLoadingComplete) {

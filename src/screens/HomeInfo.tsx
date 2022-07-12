@@ -42,7 +42,7 @@ const HomeInfo: React.FC<Props> = function (props) {
                     className="h-10 w-96 mx-auto"
                 />
                 <Image source={require("../../src/assets/images/Group 127.png")} className="h-96 w-96 mx-auto" />
-                <Text className="text-white text-3xl  font-gilroy">
+                <Text className="text-white text-3xl font-bold  font-gilroy">
                     The best app for shipping and delievey in your country
                 </Text>
                 <Button theme="dark" title="NEXT" onPress={() => getToken()} />

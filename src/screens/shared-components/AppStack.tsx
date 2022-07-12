@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import CustomDrawer from "./CustomDrawer";
-import Home from "../App/Home";
+import Home from "../App/Driver/Home";
 import {ActivityIndicator, View} from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -18,6 +18,7 @@ import {localStorageService} from "../../services/LocalStorageService";
 import {useNavigation} from "@react-navigation/native";
 import {authFetchMeAction} from "../../redux/actions/auth.actions";
 import {setAutoFreeze} from "immer";
+import { DriverNavigator } from "../App/Driver/DriverNavigator";
 
 const Drawer = createDrawerNavigator();
 
@@ -58,8 +59,6 @@ const AppStack = (props: Props) => {
             fetchMe();
         }
     };
-
-
 
     return (
         <>
@@ -104,9 +103,8 @@ const AppStack = (props: Props) => {
                             options={{
                                 drawerIcon: ({color}) => <FontAwesome name="home" size={22} color={color} />,
                             }}
-                        >
-                            {(props) => <Home type="driver" />}
-                        </Drawer.Screen>
+                            component={DriverNavigator}
+                        ></Drawer.Screen>
                     )}
                     <Drawer.Screen
                         name="History"

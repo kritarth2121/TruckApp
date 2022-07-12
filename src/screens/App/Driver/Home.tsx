@@ -5,16 +5,18 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import cx from "classnames";
 import tw from "twrnc";
 import {Picker} from "@react-native-picker/picker";
-import Card from "./components/Card";
-import {localStorageService} from "../../services/LocalStorageService";
+import Card from "../components/Card";
+import {localStorageService} from "../../../services/LocalStorageService";
 import {DrawerActions, useNavigation} from "@react-navigation/native";
-import {Journey} from "src/models/entities/Journey";
-import Header from "../shared-components/Header";
+import Header from "../../shared-components/Header";
 import {connect} from "react-redux";
-import {journeyFetchAction, journeyFetchDriverAction} from "../../redux/actions/journey.actions";
-import {journeyList, journeyDriverList} from "../../redux/selectors/journey.selector";
-import {AppState} from "../../redux/reducers";
-import {UserRole} from "../../models/enums/UserRole";
+import {journeyFetchAction, journeyFetchDriverAction} from "../../../redux/actions/journey.actions";
+import {journeyList, journeyDriverList} from "../../../redux/selectors/journey.selector";
+import {AppState} from "../../../redux/reducers";
+import {UserRole} from "../../../models/enums/UserRole";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import CardStatus from "./CardStatus";
+import {Journey} from "../../../models/entities/Journey";
 
 interface Props {
     type: string;
@@ -23,6 +25,7 @@ interface Props {
     list?: Journey[];
     driverJourneyList?: Journey[];
 }
+const Stack = createNativeStackNavigator();
 
 const Home: React.FC<Props> = function (props) {
     const [selectedStatus, setSelectedStatus] = useState("");
@@ -43,9 +46,9 @@ const Home: React.FC<Props> = function (props) {
         <View className="bg-white h-full w-full  px-2">
             <Header />
             <View className="mt-10">
-                <Text className="text-4xl">
-                    The best <Text className="text-primary-500">shipping</Text> and{" "}
-                    <Text className="text-primary-500">delivery</Text> in your country
+                <Text className="text-4xl font-bold">
+                    The best <Text className="text-primary-500 font-bold">shipping</Text> and{" "}
+                    <Text className="text-primary-500 font-bold">delivery</Text> in your country
                 </Text>
             </View>
             <View className="w-full flex flex-row justify-between">

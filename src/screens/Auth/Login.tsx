@@ -32,7 +32,7 @@ const Login: React.FC<Props> = function (props) {
 
     return (
         <View className="bg-white h-full w-full space-y-3   p-3">
-            <Text className="text-black  mt-20 mb-10 text-5xl">Log in your Account</Text>
+            <Text className="text-black  font-bold mt-20 mb-10 text-5xl">Log in your Account</Text>
 
             <Formik
                 initialValues={{email: "", password: ""}}
